@@ -1,0 +1,10 @@
+﻿@model BookClub.ViewModels.AddBookCategoryViewModel
+<form asp-controller="BookCategory" asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="Subject"></label>
+        <input class="form-control" asp-for="Subject" />
+        <span asp-validation-for="Subject"></span>
+    </div>
+
+    <input type="submit" value="Add Category"/>
+</form>

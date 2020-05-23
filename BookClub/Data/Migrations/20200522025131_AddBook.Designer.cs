@@ -4,14 +4,16 @@ using BookClub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookClub.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200522025131_AddBook")]
+    partial class AddBook
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,10 @@ namespace BookClub.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("BookCategoryID")
+                    b.Property<int?>("BookID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -40,7 +45,9 @@ namespace BookClub.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("BookCategoryID");
+                    b.HasIndex("BookID");
+
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Books");
                 });
@@ -262,9 +269,13 @@ namespace BookClub.Migrations
 
             modelBuilder.Entity("BookClub.Models.Book", b =>
                 {
-                    b.HasOne("BookClub.Models.BookCategory", "BookCategory")
+                    b.HasOne("BookClub.Models.Book", null)
                         .WithMany("Books")
-                        .HasForeignKey("BookCategoryID")
+                        .HasForeignKey("BookID");
+
+                    b.HasOne("BookClub.Models.BookCategory", "Category")
+                        .WithMany("Books")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

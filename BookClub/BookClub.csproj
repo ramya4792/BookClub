@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-BookClub-AFBEADF1-A7BF-4427-9F80-AB7DB2F5FB6A</UserSecretsId>
+    <UserSecretsId>aspnet-BookClub-63F28B68-3D59-4C13-8763-E3162D5D519E</UserSecretsId>
   </PropertyGroup>
 
 

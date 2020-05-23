@@ -1,0 +1,9 @@
+﻿@model List<BookClub.Models.BookCategory>
+
+@foreach(var book in Model)
+{
+    <ul>
+        <li>@book.Subject</li>
+    </ul>
+}
+<p><a asp-controller="BookCategory" asp-action="Add">Add Category</a></p>

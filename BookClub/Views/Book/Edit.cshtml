@@ -1,0 +1,21 @@
+﻿@model BookClub.ViewModels.EditBookViewModel;
+
+    <form asp-controller="Book" asp-action="Edit" method="post">
+        <div class="form-group">
+            <label asp-for="Title"></label>
+            <input class="form-control" asp-for="Title" />
+            <span asp-validation-for="Title"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Author"></label>
+            <input class="form-control" asp-for="Author" />
+            <span asp-validation-for="Author"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BookCategoryID"></label>
+            <select asp-for="BookCategoryID" asp-items="Model.BookCategories"></select>
+        </div>
+
+        <input type="hidden" asp-for="BookId"/>
+        <input type="submit" value="Edit Book"/>
+    </form>
