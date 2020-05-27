@@ -1,0 +1,11 @@
+﻿
+<h4>Title of the  book :@ViewBag.BookTitle</h4>
+<h5>Author: @ViewBag.Author</h5>
+<h5>Copy : @ViewBag.Copy</h5>
+<p>@ViewBag.Desc</p>
+
+<img src="~/Uploads/@ViewBag.Image" asp-append-version="true" />
+<h5>Cost: @ViewBag.Cost</h5>
+
+<a asp-controller="Book" asp-action="Index">Back to List</a>
+

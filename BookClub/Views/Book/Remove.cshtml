@@ -1,10 +1,9 @@
-﻿<form method="post">
-    @foreach(var book in ViewBag.books)
-    {
-        <input type="checkbox" name="bookIds" id="@book.ID" value="@book.ID"/>
-        <label for="@book.ID">@book.Title</label>
-        <br/>
-    }
+﻿<h4>Are you sure you want to delete the book?</h4>
 
-    <input type="submit" value="Remove"/>
-</form>
+    <form method="post">
+       
+        <input type="submit" value="Remove" />
+        <input type="hidden" />|
+        <a asp-controller="Book" asp-action="Index">Back to List</a>
+    </form>
+

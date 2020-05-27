@@ -1,27 +1,31 @@
 ﻿@model IList<BookClub.Models.Book>
 @if(Model.Count == 0)
 {
-    <p>Not added any books yet!</p>
+    <p>No books added yet!</p>
 }
 <table>
     <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Category</th>
-        <th>Edit Action</th>
+        <th>CoverPage</th>
+        <th colspan="3">Title</th>
+        <th>Price</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.Title</td>
-            <td>@item.Author</td>
-            <td>@item.BookCategory.Subject</td>
-            <td><a asp-controller="Book" asp-action="Edit" asp-route-bookId="@item.ID">Edit</a></td>
+            <td rowspan="2"><img src="~/Uploads/@item.CoverPage" height="100" width="100" asp-append-version="true" /></td>
+            <td colspan="3">@item.Title</td>
         </tr>
+        <tr>
+            <td><a asp-controller="Book" asp-action="Details" asp-route-bookId="@item.ID">Details</a>|</td>
+            <td><a asp-controller="Book" asp-action="Edit" asp-route-bookId="@item.ID">Edit</a>|</td>
+            <td><a asp-controller="Book" asp-action="Remove" asp-route-bookId="@item.ID">Remove</a></td>
+
+            <td rowspan="2">@item.Price</td>
+        </tr>
+
     }
 
 
 </table>
 
 <p><a asp-controller="Book" asp-action="Add">Add Book</a></p>
-<p><a asp-controller="Book" asp-action="Remove">Remove Book</a></p>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace BookClub.Models
 {
     public class Book
@@ -15,7 +11,12 @@ namespace BookClub.Models
         public int BookCategoryID { get; set; }
         public BookCategory BookCategory { get; set; }
         
+        public string CoverPage { get; set; }
+        public BookCopy Copy { get; set; }        
         
+        public string File { get; set; }
 
+        public BookCost PriceOption { get; set; }
+        public double Price { get; set; }
     }
 }

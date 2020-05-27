@@ -30,6 +30,7 @@ namespace BookClub.Controllers
         {
             return View(addBookCategoryViewModel);
         }
+
         [HttpPost]
         public IActionResult Add(AddBookCategoryViewModel addBookCategoryViewModel, string subject)
         {

@@ -1,4 +1,29 @@
 ﻿@model BookClub.ViewModels.EditBookViewModel;
+    <script type="text/javascript">
+        function copyType() {
+            var e = document.getElementById("copyId");
+            var selCopyType = e.options[e.selectedIndex].text;
+            if (selCopyType == "SoftCopy") {
+                var element = document.createElement("input");
+                element.setAttribute("type", "file");
+                element.setAttribute("name", "File");
+                var file = document.getElementById("fileId");
+                file.appendChild(element);
+            }
+        }
+        function priceType() {
+            var e = document.getElementById("priceId");
+            var selPriceType = e.options[e.selectedIndex].text;
+            if (selPriceType == "Rent" || selPriceType == "Buy") {
+                var element = document.createElement("input");
+                element.setAttribute("type", "text");
+                element.setAttribute("name", "Cost");
+                var text = document.getElementById("costId");
+                text.appendChild(element);
+            }
+        }
+
+    </script>
 
     <form asp-controller="Book" asp-action="Edit" method="post">
         <div class="form-group">
@@ -6,16 +31,45 @@
             <input class="form-control" asp-for="Title" />
             <span asp-validation-for="Title"></span>
         </div>
+
         <div class="form-group">
             <label asp-for="Author"></label>
             <input class="form-control" asp-for="Author" />
             <span asp-validation-for="Author"></span>
         </div>
+
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <input class="form-control" asp-for="Description" />
+
+        </div>
+
         <div class="form-group">
             <label asp-for="BookCategoryID"></label>
             <select asp-for="BookCategoryID" asp-items="Model.BookCategories"></select>
+            <span asp-validation-for="BookCategoryID"></span>
         </div>
 
-        <input type="hidden" asp-for="BookId"/>
-        <input type="submit" value="Edit Book"/>
+        <div class="form-group">
+            <label asp-for="CoverPage"></label>
+            <input asp-for="CoverPage" type="file" id="coverPageId" name="coverPage" />
+            <span asp-validation-for="CoverPage"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Copy"></label>
+            <select id="copyId" onchange="copyType()" asp-for="Copy" asp-items="Model.BookCopies"></select>
+            <span asp-validation-for="Copy" id="fileId"></span>
+        </div>
+
+
+
+        <div class="form-group">
+            <label asp-for="PriceOption"></label>
+            <select id="priceId" onchange="priceType()" asp-for="PriceOption" asp-items="Model.PriceOptions"></select>
+            <span id="costId" asp-validation-for="PriceOption"></span>
+        </div>
+
+        <input type="hidden" asp-for="BookId" />
+        <input type="submit" value="Edit Book" />
     </form>
