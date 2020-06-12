@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,16 +22,25 @@ namespace BookClub.Controllers
         
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly ApplicationDbContext context;
-        public BookController(ApplicationDbContext dbContext, IWebHostEnvironment hostEnvironment)
+        private readonly UserManager<ApplicationUser> userManager;
+        public BookController(ApplicationDbContext dbContext, IWebHostEnvironment hostEnvironment, UserManager<ApplicationUser> user)
         {
             context = dbContext;
             webHostEnvironment = hostEnvironment;
+            userManager = user;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IList<Book> books = context.Books.Include(b => b.BookCategory).ToList();
+      
+            var user =  await userManager.FindByNameAsync(User.Identity.Name);
+
+            IList<Book> books = context.Books.Include(b => b.BookCategory).Where(x=>x.UserId==user.Id).ToList();
+            
+
             return View(books);
         }
+
+        
         public IActionResult Add()
         {
             
@@ -44,11 +55,9 @@ namespace BookClub.Controllers
             //extracting  the bookcategory text
             BookCategory bookCategory =
                 context.BookCategories.Single(b => b.ID == addBookViewModel.BookCategoryID);
-
-
+            var user = userManager.GetUserId(HttpContext.User);
             if (ModelState.IsValid)
             {
-
                 Book newBook = new Book
                 {
                     Title = addBookViewModel.Title,
@@ -59,7 +68,8 @@ namespace BookClub.Controllers
                     PriceOption = addBookViewModel.PriceOption,
                     CoverPage = UploadedImge(addBookViewModel),
                     File = UploadedFile(addBookViewModel),
-                    Price= addBookViewModel.Cost
+                    Price = addBookViewModel.Cost,
+                    UserId = int.Parse(userManager.GetUserId(HttpContext.User))
                 };
                 context.Books.Add(newBook);
                 context.SaveChanges();
@@ -192,6 +202,11 @@ namespace BookClub.Controllers
             ViewBag.Image = bookDetails.CoverPage;
             ViewBag.Cost = bookDetails.Price;
             ViewBag.Copy = bookDetails.Copy;
+            return View();
+        }
+
+        public IActionResult MessageDisplay()
+        {
             return View();
         }
         

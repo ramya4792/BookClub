@@ -9,6 +9,8 @@ namespace BookClub.ViewModels
 
     public class AddBookViewModel
     {
+        //public int UserId { get; set; }
+
         [Required(ErrorMessage ="Title required")]
         [Display(Name = "Title of the Book")]
         

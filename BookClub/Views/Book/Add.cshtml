@@ -17,6 +17,7 @@
             if (selPriceType == "Rent" || selPriceType == "Buy") {
                 var element = document.createElement("input");
                 element.setAttribute("type", "text");
+                element.setAttribute("placeholder", "Enter Price here")
                 element.setAttribute("name", "Cost");
                 var text = document.getElementById("costId");
                 text.appendChild(element);
