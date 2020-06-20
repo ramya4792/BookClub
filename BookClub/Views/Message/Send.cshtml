@@ -1,0 +1,12 @@
+﻿@model BookClub.ViewModels.AddMessageViewModel
+<h1>
+    Send Message
+</h1>
+<form method="post" asp-action="Send">
+    <div class="form-group">
+        <label asp-for="Message"></label>
+        <input class="form-control" asp-for="Message" />
+        <span asp-validation-for="Message"></span>
+    </div>
+    <input type="submit" value="Send"/>
+</form>

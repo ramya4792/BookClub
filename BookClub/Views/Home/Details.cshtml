@@ -1,4 +1,6 @@
-﻿<h2>@ViewBag.BookTitle</h2>
+﻿@model BookClub.Models.BookCopy
+
+<h2>@ViewBag.BookTitle</h2>
 <h5>By: @ViewBag.Author</h5>
 
 <img src="~/Uploads/@ViewBag.Image" asp-append-version="true" class="image-detail" height="500" width="400" />
@@ -7,8 +9,30 @@
     <p>@ViewBag.Desc</p>
     <p>Copy of Book: @ViewBag.Copy</p>
     <h6>Cost: @ViewBag.Cost</h6>
-
-    <button type="submit">Send Request</button>
+    
 </div>
+@if (ViewBag.Copy == "HardCopy" )
+{
+    <form method=get asp-controller="Message" asp-action="Send" asp-route-id="@ViewBag.UserId">
+        <button type="submit">Send Request</button>
+    </form>
+}
+@if (ViewBag.Copy == "SoftCopy")
+{
+    @if (ViewBag.Cost == 0)
+    {
+            <a href="~/Uploads/SoftCopies/@ViewBag.File" download="@ViewBag.BookTitle">
+                Download
+            </a>   
+    }
+    else
+    {
+        <form>
+            <input type="submit" value="Pay Amount"/>
+        </form>
+    }
+
+}
+
 
 <a asp-controller="Home" asp-action="Index">Back to List</a>

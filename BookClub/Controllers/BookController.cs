@@ -36,7 +36,6 @@ namespace BookClub.Controllers
 
             IList<Book> books = context.Books.Include(b => b.BookCategory).Where(x=>x.UserId==user.Id).ToList();
             
-
             return View(books);
         }
 
@@ -94,7 +93,7 @@ namespace BookClub.Controllers
 
                 using(var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    addBookViewModel.CoverPage.CopyTo(fileStream);
+                    addBookViewModel.File.CopyTo(fileStream);
                 }
             }
             return uniqueFileName;
@@ -202,13 +201,10 @@ namespace BookClub.Controllers
             ViewBag.Image = bookDetails.CoverPage;
             ViewBag.Cost = bookDetails.Price;
             ViewBag.Copy = bookDetails.Copy;
+
             return View();
         }
 
-        public IActionResult MessageDisplay()
-        {
-            return View();
-        }
         
     }
 }

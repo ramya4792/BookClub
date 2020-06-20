@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using BookClub.Models;
 using BookClub.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookClub.Controllers
 {
@@ -15,6 +16,7 @@ namespace BookClub.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext context;
+
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext dbContext)
         {
             _logger = logger;
@@ -67,14 +69,18 @@ namespace BookClub.Controllers
 
         public IActionResult Details(int bookId)
         {
+            
             Book bookDetails = context.Books.Single(b => b.ID == bookId);
             ViewBag.BookTitle = bookDetails.Title;
             ViewBag.Author = bookDetails.Author;
             ViewBag.Desc = bookDetails.Description;
             ViewBag.Image = bookDetails.CoverPage;
             ViewBag.Cost = bookDetails.Price;
-            ViewBag.Copy = bookDetails.Copy;
-
+            ViewBag.Copy = bookDetails.Copy.ToString();
+            ViewBag.UserId = bookDetails.UserId;
+            ViewBag.User = "hello";
+            ViewBag.File = bookDetails.File;
+            ViewBag.bookId = bookId;
             return View();
         }
 
