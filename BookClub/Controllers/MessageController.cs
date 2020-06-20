@@ -27,7 +27,8 @@ namespace BookClub.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
-            return View(context.AddMessages.Where(x => x.ReceiverId == user.Id).ToList());
+            var messages = context.AddMessages.Where(x => x.ReceiverId == user.Id);
+            return View(messages.OrderByDescending(m => m.Date).ToList());
         }
         public IActionResult Send(AddMessageViewModel addMessageViewModel)
         {
