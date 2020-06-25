@@ -23,6 +23,41 @@ namespace BookClub.ViewModels
                     Text =category.Subject
                 });
             }
+
+            BookCopies = new List<SelectListItem>();
+            BookCopies.Add(new SelectListItem
+            {
+                Value = ((int)BookCopy.HardCopy).ToString(),
+                Text = BookCopy.HardCopy.ToString()
+            });
+            BookCopies.Add(new SelectListItem
+            {
+                Value = ((int)BookCopy.SoftCopy).ToString(),
+                Text = BookCopy.SoftCopy.ToString()
+            });
+
+
+            PriceOptions = new List<SelectListItem>();
+            PriceOptions.Add(new SelectListItem
+            {
+                Value = ((int)BookCost.Free).ToString(),
+                Text = BookCost.Free.ToString()
+            });
+            PriceOptions.Add(new SelectListItem
+            {
+                Value = ((int)BookCost.Swap).ToString(),
+                Text = BookCost.Swap.ToString()
+            });
+            PriceOptions.Add(new SelectListItem
+            {
+                Value = ((int)BookCost.Rent).ToString(),
+                Text = BookCost.Rent.ToString()
+            });
+            PriceOptions.Add(new SelectListItem
+            {
+                Value = ((int)BookCost.Buy).ToString(),
+                Text = BookCost.Buy.ToString()
+            });
         }
     }
 }

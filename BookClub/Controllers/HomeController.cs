@@ -9,6 +9,7 @@ using BookClub.Models;
 using BookClub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace BookClub.Controllers
 {
@@ -81,6 +82,7 @@ namespace BookClub.Controllers
             ViewBag.User = "hello";
             ViewBag.File = bookDetails.File;
             ViewBag.bookId = bookId;
+            
             return View();
         }
 

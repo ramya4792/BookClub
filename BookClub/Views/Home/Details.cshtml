@@ -27,7 +27,7 @@
     }
     else
     {
-        <form>
+        <form  method="get" asp-controller="Payment" asp-action="Create" asp-route-id="@ViewBag.bookId">
             <input type="submit" value="Pay Amount"/>
         </form>
     }

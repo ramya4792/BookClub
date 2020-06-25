@@ -11,6 +11,7 @@ namespace BookClub.Models
         public string  Message { get; set; }
         public ApplicationUser User { get; set; }
         public int UserId { get; set; }
+        public string UserName { get; set; }
         public int ReceiverId { get; set; }
 
         public DateTime Date { get; set; }

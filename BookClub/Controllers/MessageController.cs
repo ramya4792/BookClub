@@ -38,6 +38,7 @@ namespace BookClub.Controllers
         public async Task<IActionResult> Send(AddMessageViewModel addMessageViewModel, string message, int id)
         {
             var user = await userManager.FindByNameAsync(User.Identity.Name);
+            var name = user.FullName;
             if (ModelState.IsValid)
             {
 
@@ -46,16 +47,18 @@ namespace BookClub.Controllers
                     Message = message,
                     ReceiverId = id,
                     Date = DateTime.Now,
+                    UserName = name,
                     UserId = int.Parse(userManager.GetUserId(HttpContext.User))
+                   
                 };
                 context.AddMessages.Add(newMessage);
                 context.SaveChanges();
 
                 return Redirect("/Home");
             }
-            return View();
+            return View(addMessageViewModel);
         }
-        /*public IActionResult Download()
+        public IActionResult Download()
         {
             return View();
         }
@@ -65,6 +68,6 @@ namespace BookClub.Controllers
             Book download = context.Books.Single(b => b.ID == id);
             ViewBag.File = download.File;
             return View();
-        }*/
+        }
     }
 }

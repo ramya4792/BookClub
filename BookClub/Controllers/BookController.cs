@@ -119,6 +119,48 @@ namespace BookClub.Controllers
             }
             return uniqueFileName;
         }
+        private string EditUploadedFile(EditBookViewModel editBookViewModel)
+        {
+            string uniqueFileName = null;
+            if (editBookViewModel.File != null)
+            {
+                // to get E:\CoderGirl\C#\ramya4792\BookClub\BookClub\wwwroot\Uploads\SoftCopies
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Uploads", "SoftCopies");
+
+                //creating unique filename using unique identifier and append the filename
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + editBookViewModel.File.FileName;
+
+                //getting full file path
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    editBookViewModel.File.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
+        private string EditUploadedImge(EditBookViewModel editBookViewModel)
+        {
+            string uniqueFileName = null;
+            if (editBookViewModel.CoverPage != null)
+            {
+                // to get E:\CoderGirl\C#\ramya4792\BookClub\BookClub\wwwroot\Uploads\
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "Uploads");
+
+                //creating unique filename using unique identifier and append the filename
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + editBookViewModel.CoverPage.FileName;
+
+                //getting image path
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    editBookViewModel.CoverPage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
+        }
         public IActionResult Remove()
         {
             return View();
@@ -164,15 +206,18 @@ namespace BookClub.Controllers
                 BookCategoryID = editBook.BookCategoryID,
                 Copy = editBook.Copy,
                 PriceOption = editBook.PriceOption,
-                Cost = editBook.Price
+                Cost = editBook.Price,
+                
             };
+
             return View(editBookViewModel);
         }
 
         [HttpPost]
         public IActionResult Edit(EditBookViewModel editBookViewModel)
         {
-            string uniqueFileName = UploadedFile(editBookViewModel);
+
+            
             Book editBook = context.Books.Single(b => b.ID == editBookViewModel.BookId);
             BookCategory bookCategory =
                 context.BookCategories.Single(b => b.ID == editBookViewModel.BookCategoryID);
@@ -183,10 +228,11 @@ namespace BookClub.Controllers
                 editBook.Author = editBookViewModel.Author;
                 editBook.Description = editBookViewModel.Description;
                 editBook.BookCategory = bookCategory;
-                editBook.CoverPage = uniqueFileName;
+                editBook.CoverPage = EditUploadedImge(editBookViewModel);
                 editBook.Copy = editBookViewModel.Copy;
                 editBook.Price = editBookViewModel.Cost;
-
+                editBook.File = EditUploadedFile(editBookViewModel);
+                
                 context.SaveChanges();
                 return Redirect("/Book");
             }

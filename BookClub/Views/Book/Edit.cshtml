@@ -25,7 +25,7 @@
 
     </script>
 
-    <form asp-controller="Book" asp-action="Edit" method="post">
+    <form asp-controller="Book" asp-action="Edit" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="Title"></label>
             <input class="form-control" asp-for="Title" />
