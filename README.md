@@ -9,7 +9,7 @@
 * Add/Edit/Remove: Users will add, edit and remove the book any time to their profiles.
 * Sort/Filter: Users will able to sort the books accroding to Title, Author and Price. Users can also filter the books by categories of a book.
 * Payment: Users will be able pay by cash/card to rent/buy a book.
-* Users Communication: If a book is hard copy users can communicate to owner or a book to plan where they can meet and exchange it.
+* Users Communication: If a book is hard copy users can communicate to owner of a book to plan where they can meet and exchange it.
 
 ### Technologies
 * Asp.net Core
